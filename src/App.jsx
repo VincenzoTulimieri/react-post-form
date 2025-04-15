@@ -1,6 +1,6 @@
 // importazione file
 import { useState } from "react";
-
+import axios from "axios";
 
 function App() {
 
@@ -19,6 +19,20 @@ function App() {
     }))
   }
 
+  const postApi = "https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts"
+
+  function formSubmit(event){
+    event.preventDefault();
+
+    axios.post(postApi, newPost)
+      .then(response =>{
+        console.log(response.data)
+      }
+        
+    )
+  }
+
+
   return (
     <>
       <header>
@@ -26,7 +40,7 @@ function App() {
       </header>
       <main>
         <div className="container">
-          <form>
+          <form onSubmit={formSubmit}>
             <div className="input-container">
               <label>Autore</label>
               <input
@@ -63,7 +77,7 @@ function App() {
                 checked ={newPost.public}
                 onChange={addNewPost}
               />
-              <label>Rendi pubblico</label>
+              <label>Pubblica</label>
             </div>
             <button className="btn" type="submit">Invia il tuo post</button>
           </form>
