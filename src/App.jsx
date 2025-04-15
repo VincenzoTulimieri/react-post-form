@@ -4,9 +4,20 @@ import { useState } from "react";
 
 function App() {
 
+  const[newPost, setNewPost] = useState({
+    author:"",
+    title:"",
+    body:"",
+    public: false
+  })
 
-
-
+  function addNewPost(event){
+    const{name,type,value,checked}= event.target
+    setNewPost(prev =>({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }))
+  }
 
   return (
     <>
@@ -21,6 +32,8 @@ function App() {
               <input
                 type="text"
                 name="author"
+                value={newPost.author}
+                onChange={addNewPost}
                 required
               />
             </div>
@@ -29,6 +42,8 @@ function App() {
               <input
                 type="text"
                 name="title"
+                value={newPost.title}
+                onChange={addNewPost}
                 required
               />
             </div>
@@ -36,6 +51,8 @@ function App() {
               <label>Testo</label>
               <textarea
                 name="body"
+                value={newPost.body}
+                onChange={addNewPost}
                 required
               />
             </div>
@@ -43,6 +60,8 @@ function App() {
               <input
                 type="checkbox"
                 name="public"
+                checked ={newPost.public}
+                onChange={addNewPost}
               />
               <label>Rendi pubblico</label>
             </div>
